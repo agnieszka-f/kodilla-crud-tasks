@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("v1/task")
 public class TaskController {
@@ -35,8 +36,10 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-    public void deleteTask(@RequestParam Long taskId){
-        dbService.deleteById(taskId);
+    public void deleteTask(@RequestParam Long taskId) throws TaskNotFoundException{
+        //dbService.deleteById(taskId);
+        if(dbService.getTask(taskId).isPresent()) dbService.deleteById(taskId);
+        else throw new TaskNotFoundException();
     }
     @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
     public TaskDto updateTask(@RequestBody TaskDto taskDto){
