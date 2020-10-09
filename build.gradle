@@ -23,14 +23,17 @@ dependencies {
 
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('mysql:mysql-connector-java')
+
+	testImplementation 'junit:junit:4.12'
+	implementation 'junit:junit:4.12'
 	//compile('org.postgresql:postgresql')
 
 	//providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat' ---3
 }
 
-test {
-	useJUnitPlatform()
-}
+//test {
+	//useJUnitPlatform()
+//}
 
 
 
