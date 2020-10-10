@@ -22,7 +22,7 @@ public class CoreConfiguration implements WebMvcConfigurer {
 
     @Bean public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("com.crud.tasks.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.crud.tasks.controller")) //zad 23.2
                 .paths(PathSelectors.any())
                 .build();
     }
