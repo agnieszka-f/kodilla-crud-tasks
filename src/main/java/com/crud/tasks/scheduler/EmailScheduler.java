@@ -19,11 +19,15 @@ public class EmailScheduler {
 
     private static final String SUBJECT = "Tasks: Once a day email";
 
-    @Scheduled(cron = "0 0 10 * * *")
+    //@Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(fixedDelay = 10000)
     public void sendInformationEmail(){
         simpleEmailService.send(getInformationEmail());
     }
     private Mail getInformationEmail(){
-        return new Mail(adminConfig.getAdminMail(),SUBJECT, taskRepository.count()==1?"Currently in database you got: 1 task.":"Currently in database you got: "+taskRepository.count()+" tasks.",null);
+        return new Mail(adminConfig.getAdminMail(),SUBJECT,getInformationMessage(),null);
+    }
+    private String getInformationMessage(){
+        return "Currently in database you got: "+ taskRepository.count()+" task".concat(taskRepository.count()!=1?"s.":".");
     }
 }
