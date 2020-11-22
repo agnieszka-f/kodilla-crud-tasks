@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 @Component
 public class TrelloMapper {
     public TrelloBoard mapToBoard(final TrelloBoardDto trelloBoardDto){
-        return new TrelloBoard(trelloBoardDto.getId(),
-                                trelloBoardDto.getName(),
+        return new TrelloBoard(trelloBoardDto.getName(),trelloBoardDto.getId(),
                                 mapToList(trelloBoardDto.getLists()));
     }
     public List<TrelloBoard> mapToBoards(final List<TrelloBoardDto> trelloBoardDto){
