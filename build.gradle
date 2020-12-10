@@ -31,6 +31,7 @@ dependencies {
 
 	compile('com.google.code.gson:gson:2.8.6')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	testImplementation 'junit:junit:4.12'
 	implementation 'junit:junit:4.12'
 	//compile('org.postgresql:postgresql')
