@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloMapperTestSuite {
@@ -21,16 +22,16 @@ public class TrelloMapperTestSuite {
     public void testMapToList(){
         //Given
         List<TrelloListDto> trelloListDtos = Arrays.asList(new TrelloListDto("firstList", "1",false),
-                                                            new TrelloListDto("secondList","2",false));
+                                                            new TrelloListDto());
         List<TrelloList> result = trelloMapper.mapToList(trelloListDtos);
         //When
         int size = result.size();
         String nameOfFirstElement = result.get(0).getName();
-        String nameOfSecondElement = result.get(1).getName();
+        Optional<String> nameOfSecondElement = Optional.ofNullable(result.get(1).getName());
         //Then
         Assert.assertEquals(2,size);
         Assert.assertEquals("firstList",nameOfFirstElement);
-        Assert.assertEquals("secondList",nameOfSecondElement);
+        Assert.assertEquals(Optional.empty(),nameOfSecondElement);
     }
     @Test
     public void testMapToListDto(){
@@ -127,4 +128,5 @@ public class TrelloMapperTestSuite {
         Assert.assertEquals("100",idBoard);
         Assert.assertEquals("102",idList);
     }
+
 }
