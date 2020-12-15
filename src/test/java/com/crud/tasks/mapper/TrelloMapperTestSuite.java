@@ -2,6 +2,7 @@ package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
 
+import javafx.beans.binding.When;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -113,5 +114,17 @@ public class TrelloMapperTestSuite {
         Assert.assertEquals("2",id);
         Assert.assertEquals("secondList",listName);
         Assert.assertEquals("2",listId);
+    }
+    @Test
+    public void testMapToBoard(){
+        //Given
+        TrelloBoardDto trelloBoardDto = new TrelloBoardDto("test_board","100", Arrays.asList(new TrelloListDto("test","102",false)));
+        TrelloBoard result = trelloMapper.mapToBoard(trelloBoardDto);
+        //When
+        String idBoard = result.getId();
+        String idList = result.getLists().get(0).getId();
+        //Then
+        Assert.assertEquals("100",idBoard);
+        Assert.assertEquals("102",idList);
     }
 }
