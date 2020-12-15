@@ -18,6 +18,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -65,5 +66,23 @@ public class TrelloClientTest {
         Assert.assertEquals("test_board", fetchedTrelloBoards.get(0).getName());
         Assert.assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
     }
+    @Test
+    public void shouldCreateCard() throws URISyntaxException {
+        //Given
+        TrelloCardDto trelloCardDto = new TrelloCardDto("Test task", "Task Description", "top", "test_id");
+        URI url = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Task%20Description&pos=top&idList=test_id");
 
+        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard("1", "Test task", "http://test.com");
+
+        when(restTemplate.postForObject(url, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
+        //When
+        CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
+
+        //Given
+        Assert.assertEquals("1", newCard.getId());
+        Assert.assertEquals("Test task", newCard.getName());
+        Assert.assertEquals("http://test.com", newCard.getShortUrl());
+
+
+    }
 }
